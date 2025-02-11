@@ -2,6 +2,7 @@ package core.domain;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Funcionario extends Pessoa {
 
@@ -27,6 +28,10 @@ public class Funcionario extends Pessoa {
         BigDecimal aumento = this.salario.multiply(new BigDecimal(percentual/100));
         this.salario = this.salario.add(aumento);
         return this.salario;
+    }
+
+    public int getIdade(){
+        return Period.between(this.getDataNascimento(), LocalDate.now()).getYears();
     }
 
     @Override
