@@ -2,6 +2,7 @@ package main;
 
 import core.domain.Funcionario;
 import dataprovider.FuncionarioRepository;
+import utils.Formatador;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -14,7 +15,9 @@ public class Main {
 
         FuncionarioRepository.removerFuncionario("João"); //Remover o funcionário “João” da lista. OK
 
-        
+        imprimirTodosFuncionarios(); //Imprimir todos os funcionários com todas suas informações. OK
+
+
     }
 
     private static void inserirFuncionarios(){
@@ -82,5 +85,22 @@ public class Main {
         );
 
         FuncionarioRepository.adicionarFuncionarios(funcionarios);
+    }
+
+    private static void imprimirTodosFuncionarios(){
+        List<Funcionario> funcionarios = FuncionarioRepository.obterFuncionarios();
+
+        funcionarios.forEach( f -> {
+            System.out.println( " [ Nome: "
+                    .concat( f.getNome() )
+                    .concat(", DataNascimento: ")
+                    .concat( Formatador.formatar( f.getDataNascimento() ) )
+                    .concat(", Salario: R$ ")
+                    .concat( Formatador.formatar( f.getSalario() ) )
+                    .concat(", Função: ")
+                    .concat( f.getFuncao() )
+                    .concat( " ]" )
+            );
+        } );
     }
 }
