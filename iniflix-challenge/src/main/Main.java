@@ -1,13 +1,16 @@
 package main;
 
 import core.domain.Funcionario;
+import core.usecase.AgruparFuncionariosPorFuncao;
 import core.usecase.AumentoSalarialUseCase;
 import dataprovider.FuncionarioRepository;
 import utils.Formatador;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -24,6 +27,11 @@ public class Main {
 
         concederAumentoSalarial(PERCENTUAL_AUMENTO_SALARIAL); //Os funcionários receberam 10% de aumento de salário, atualizar a lista de funcionários com novo valor. OK
 
+        System.out.println();
+        System.out.println("---------------");
+        System.out.println();
+
+        imprimirFuncionariosPorFuncao(); //Imprimir os funcionários, agrupados por função. OK
     }
 
     private static void inserirFuncionarios(){
@@ -115,6 +123,16 @@ public class Main {
 
         funcionarios.forEach( f -> {
             AumentoSalarialUseCase.aumentarSalario( percentual, f );
+        });
+    }
+
+    private static void imprimirFuncionariosPorFuncao(){
+        List<Funcionario> funcionarios = FuncionarioRepository.obterFuncionarios();
+
+        Map<String, List<Funcionario>> funcionariosPorFuncao = AgruparFuncionariosPorFuncao.obterFuncionariosPorFuncao(funcionarios);
+
+        funcionariosPorFuncao.forEach( (funcao, lista) -> {
+            System.out.println(funcao+": "+lista);
         });
     }
 }
