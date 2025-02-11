@@ -23,6 +23,12 @@ public class Funcionario extends Pessoa {
         return funcao;
     }
 
+    public BigDecimal aumentarSalario(double percentual) {
+        BigDecimal aumento = this.salario.multiply(new BigDecimal(percentual));
+        this.salario = this.salario.add(aumento);
+        return this.salario;
+    }
+
     public static class FuncionarioBuilder {
         private String nome;
         private LocalDate dataNascimento;
