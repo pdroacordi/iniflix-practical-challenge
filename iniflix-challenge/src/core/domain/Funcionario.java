@@ -29,6 +29,11 @@ public class Funcionario extends Pessoa {
         return this.salario;
     }
 
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
+
     public static class FuncionarioBuilder {
         private String nome;
         private LocalDate dataNascimento;
