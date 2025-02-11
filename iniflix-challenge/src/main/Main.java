@@ -1,6 +1,7 @@
 package main;
 
 import core.domain.Funcionario;
+import core.usecase.AumentoSalarialUseCase;
 import dataprovider.FuncionarioRepository;
 import utils.Formatador;
 
@@ -10,13 +11,18 @@ import java.util.List;
 
 public class Main {
 
+
+
     public static void main(String[] args) {
+        final double PERCENTUAL_AUMENTO_SALARIAL = 10d;
+
         inserirFuncionarios(); //Inserir todos os funcionários, na mesma ordem e informações da tabela acima. OK
 
         FuncionarioRepository.removerFuncionario("João"); //Remover o funcionário “João” da lista. OK
 
         imprimirTodosFuncionarios(); //Imprimir todos os funcionários com todas suas informações. OK
 
+        concederAumentoSalarial(PERCENTUAL_AUMENTO_SALARIAL); //Os funcionários receberam 10% de aumento de salário, atualizar a lista de funcionários com novo valor. OK
 
     }
 
@@ -102,5 +108,13 @@ public class Main {
                     .concat( " ]" )
             );
         } );
+    }
+
+    private static void concederAumentoSalarial(double percentual){
+        List<Funcionario> funcionarios = FuncionarioRepository.obterFuncionarios();
+
+        funcionarios.forEach( f -> {
+            AumentoSalarialUseCase.aumentarSalario( percentual, f );
+        });
     }
 }
