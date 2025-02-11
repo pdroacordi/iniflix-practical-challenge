@@ -1,10 +1,7 @@
 package main;
 
 import core.domain.Funcionario;
-import core.usecase.AgruparFuncionariosPorFuncaoUseCase;
-import core.usecase.AumentoSalarialUseCase;
-import core.usecase.ObterAniversariantesPorMesUseCase;
-import core.usecase.ObterFuncionarioMaisVelhoUseCase;
+import core.usecase.*;
 import dataprovider.FuncionarioRepository;
 import utils.Formatador;
 
@@ -45,6 +42,12 @@ public class Main {
         System.out.println();
 
         imprimirFuncionarioMaisVelho(); // Imprimir o funcionário com a maior idade, exibir os atributos: nome e idade. OK
+
+        System.out.println();
+        System.out.println("---------------");
+        System.out.println();
+
+        imprimirPorOrdemAlfabetica(); // Imprimir a lista de funcionários por ordem alfabética. OK
     }
 
     private static void inserirFuncionarios(){
@@ -165,5 +168,24 @@ public class Main {
         Funcionario maisVelho = ObterFuncionarioMaisVelhoUseCase.obterMaisVelho(funcionarios);
 
         System.out.println("Funcionário mais velho: "+maisVelho.getNome()+", "+maisVelho.getIdade()+" anos.");
+    }
+
+    private static void imprimirPorOrdemAlfabetica(){
+        List<Funcionario> funcionarios = FuncionarioRepository.obterFuncionarios();
+
+        List<Funcionario> ordenado = OrdenaPorOrdemAlfabeticaUseCase.ordenarListaPorOrdemAlfabetica(funcionarios);
+
+        ordenado.forEach( f -> {
+            System.out.println( " [ Nome: "
+                    .concat( f.getNome() )
+                    .concat(", DataNascimento: ")
+                    .concat( Formatador.formatar( f.getDataNascimento() ) )
+                    .concat(", Salario: R$ ")
+                    .concat( Formatador.formatar( f.getSalario() ) )
+                    .concat(", Função: ")
+                    .concat( f.getFuncao() )
+                    .concat( " ]" )
+            );
+        } );
     }
 }
