@@ -48,6 +48,12 @@ public class Main {
         System.out.println();
 
         imprimirPorOrdemAlfabetica(); // Imprimir a lista de funcionários por ordem alfabética. OK
+
+        System.out.println();
+        System.out.println("---------------");
+        System.out.println();
+
+        imprimirTotalSalarios(); // Imprimir o total dos salários dos funcionários. OK
     }
 
     private static void inserirFuncionarios(){
@@ -187,5 +193,12 @@ public class Main {
                     .concat( " ]" )
             );
         } );
+    }
+
+    private static void imprimirTotalSalarios(){
+        List<Funcionario> funcionarios = FuncionarioRepository.obterFuncionarios();
+
+        BigDecimal total = ObterTotalSalariosUseCase.obterSalariosTotal(funcionarios);
+        System.out.println("Total de Salarios: "+Formatador.formatar(total));
     }
 }
