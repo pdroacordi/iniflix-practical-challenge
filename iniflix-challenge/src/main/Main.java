@@ -54,6 +54,13 @@ public class Main {
         System.out.println();
 
         imprimirTotalSalarios(); // Imprimir o total dos salários dos funcionários. OK
+
+        System.out.println();
+        System.out.println("---------------");
+        System.out.println();
+
+
+        imprimirSalariosMinimosPorFuncionario(); //Imprimir quantos salários mínimos ganha cada funcionário, considerando que o salário mínimo é R$1212.00. OK
     }
 
     private static void inserirFuncionarios(){
@@ -200,5 +207,15 @@ public class Main {
 
         BigDecimal total = ObterTotalSalariosUseCase.obterSalariosTotal(funcionarios);
         System.out.println("Total de Salarios: "+Formatador.formatar(total));
+    }
+
+    private static void imprimirSalariosMinimosPorFuncionario(){
+        List<Funcionario> funcionarios = FuncionarioRepository.obterFuncionarios();
+
+        funcionarios.forEach( f -> {
+            BigDecimal salarios = ObterQuantidadeSalariosPorFuncionarioUseCase.calculaSalarioPorFuncionario(f);
+
+            System.out.println(f.getNome()+" recebe "+Formatador.formatarDecimal(salarios)+" salários mínimos.");
+        });
     }
 }
