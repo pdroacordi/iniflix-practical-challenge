@@ -4,6 +4,7 @@ import core.domain.Funcionario;
 import core.usecase.AgruparFuncionariosPorFuncaoUseCase;
 import core.usecase.AumentoSalarialUseCase;
 import core.usecase.ObterAniversariantesPorMesUseCase;
+import core.usecase.ObterFuncionarioMaisVelhoUseCase;
 import dataprovider.FuncionarioRepository;
 import utils.Formatador;
 
@@ -38,6 +39,12 @@ public class Main {
         System.out.println();
 
         imprimirFuncionariosAniversarioOutubroDezembro(); // Imprimir os funcionários que fazem aniversário no mês 10 e 12. OK
+
+        System.out.println();
+        System.out.println("---------------");
+        System.out.println();
+
+        imprimirFuncionarioMaisVelho(); // Imprimir o funcionário com a maior idade, exibir os atributos: nome e idade. OK
     }
 
     private static void inserirFuncionarios(){
@@ -150,5 +157,13 @@ public class Main {
 
         System.out.println("Aniversariantes de Outubro: "+outubro);
         System.out.println("Aniversariantes de Dezembro: "+dezembro);
+    }
+
+    private static void imprimirFuncionarioMaisVelho(){
+        List<Funcionario> funcionarios = FuncionarioRepository.obterFuncionarios();
+
+        Funcionario maisVelho = ObterFuncionarioMaisVelhoUseCase.obterMaisVelho(funcionarios);
+
+        System.out.println("Funcionário mais velho: "+maisVelho.getNome()+", "+maisVelho.getIdade()+" anos.");
     }
 }
