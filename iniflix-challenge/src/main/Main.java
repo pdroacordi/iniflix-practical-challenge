@@ -1,14 +1,14 @@
 package main;
 
 import core.domain.Funcionario;
-import core.usecase.AgruparFuncionariosPorFuncao;
+import core.usecase.AgruparFuncionariosPorFuncaoUseCase;
 import core.usecase.AumentoSalarialUseCase;
+import core.usecase.ObterAniversariantesPorMesUseCase;
 import dataprovider.FuncionarioRepository;
 import utils.Formatador;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +32,12 @@ public class Main {
         System.out.println();
 
         imprimirFuncionariosPorFuncao(); //Imprimir os funcionários, agrupados por função. OK
+
+        System.out.println();
+        System.out.println("---------------");
+        System.out.println();
+
+        imprimirFuncionariosAniversarioOutubroDezembro(); // Imprimir os funcionários que fazem aniversário no mês 10 e 12. OK
     }
 
     private static void inserirFuncionarios(){
@@ -129,10 +135,20 @@ public class Main {
     private static void imprimirFuncionariosPorFuncao(){
         List<Funcionario> funcionarios = FuncionarioRepository.obterFuncionarios();
 
-        Map<String, List<Funcionario>> funcionariosPorFuncao = AgruparFuncionariosPorFuncao.obterFuncionariosPorFuncao(funcionarios);
+        Map<String, List<Funcionario>> funcionariosPorFuncao = AgruparFuncionariosPorFuncaoUseCase.obterFuncionariosPorFuncao(funcionarios);
 
         funcionariosPorFuncao.forEach( (funcao, lista) -> {
             System.out.println(funcao+": "+lista);
         });
+    }
+
+    private static void imprimirFuncionariosAniversarioOutubroDezembro(){
+        List<Funcionario> funcionarios = FuncionarioRepository.obterFuncionarios();
+
+        List<Funcionario> outubro = ObterAniversariantesPorMesUseCase.obterAniversariantesPorMes(funcionarios, 10);
+        List<Funcionario> dezembro = ObterAniversariantesPorMesUseCase.obterAniversariantesPorMes(funcionarios, 12);
+
+        System.out.println("Aniversariantes de Outubro: "+outubro);
+        System.out.println("Aniversariantes de Dezembro: "+dezembro);
     }
 }

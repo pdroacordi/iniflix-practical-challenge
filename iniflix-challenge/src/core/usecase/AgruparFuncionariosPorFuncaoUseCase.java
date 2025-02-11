@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AgruparFuncionariosPorFuncao {
+public class AgruparFuncionariosPorFuncaoUseCase {
 
     public static Map<String, List<Funcionario>> obterFuncionariosPorFuncao(List<Funcionario> funcionarios) {
         Map<String, List<Funcionario>> funcionariosPorFuncao = new HashMap<>();
