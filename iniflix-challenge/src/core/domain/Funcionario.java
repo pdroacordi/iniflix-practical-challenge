@@ -24,7 +24,7 @@ public class Funcionario extends Pessoa {
     }
 
     public BigDecimal aumentarSalario(double percentual) {
-        BigDecimal aumento = this.salario.multiply(new BigDecimal(percentual));
+        BigDecimal aumento = this.salario.multiply(new BigDecimal(percentual/100));
         this.salario = this.salario.add(aumento);
         return this.salario;
     }
