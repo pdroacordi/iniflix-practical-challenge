@@ -9,10 +9,10 @@ public class Funcionario extends Pessoa {
 
     private String funcao;
 
-    public Funcionario(String nome, LocalDate dataNascimento, BigDecimal salario, String funcao) {
-        super(nome, dataNascimento);
-        this.salario = salario;
-        this.funcao = funcao;
+    private Funcionario(FuncionarioBuilder builder) {
+        super(builder.nome, builder.dataNascimento);
+        this.salario = builder.salario;
+        this.funcao = builder.funcao;
     }
 
     public BigDecimal getSalario() {
@@ -21,5 +21,36 @@ public class Funcionario extends Pessoa {
 
     public String getFuncao() {
         return funcao;
+    }
+
+    public static class FuncionarioBuilder {
+        private String nome;
+        private LocalDate dataNascimento;
+        private BigDecimal salario;
+        private String funcao;
+
+        public FuncionarioBuilder nome(String nome) {
+            this.nome = nome;
+            return this;
+        }
+
+        public FuncionarioBuilder dataNascimento(LocalDate dataNascimento) {
+            this.dataNascimento = dataNascimento;
+            return this;
+        }
+
+        public FuncionarioBuilder salario(BigDecimal salario) {
+            this.salario = salario;
+            return this;
+        }
+
+        public FuncionarioBuilder funcao(String funcao) {
+            this.funcao = funcao;
+            return this;
+        }
+
+        public Funcionario build() {
+            return new Funcionario(this);
+        }
     }
 }
